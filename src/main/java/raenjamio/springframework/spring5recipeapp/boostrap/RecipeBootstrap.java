@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
 import raenjamio.springframework.spring5recipeapp.domain.Category;
 import raenjamio.springframework.spring5recipeapp.domain.Difficulty;
 import raenjamio.springframework.spring5recipeapp.domain.Ingredient;
@@ -19,6 +20,7 @@ import raenjamio.springframework.spring5recipeapp.repositories.CategoryRepositor
 import raenjamio.springframework.spring5recipeapp.repositories.RecipeRepository;
 import raenjamio.springframework.spring5recipeapp.repositories.UnitOfMeasureRepository;
 
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -34,10 +36,12 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+    	log.debug("loading....");
         recipeRepository.saveAll(getRecipes());
     }
 
     private List<Recipe> getRecipes() {
+    	log.debug("in getRecipes");
 
         List<Recipe> recipes = new ArrayList<>(2);
 
