@@ -12,6 +12,7 @@ import raenjamio.springframework.spring5recipeapp.commands.RecipeCommand;
 import raenjamio.springframework.spring5recipeapp.converters.RecipeCommandToRecipe;
 import raenjamio.springframework.spring5recipeapp.converters.RecipeToRecipeCommand;
 import raenjamio.springframework.spring5recipeapp.domain.Recipe;
+import raenjamio.springframework.spring5recipeapp.exceptions.NotFoundException;
 import raenjamio.springframework.spring5recipeapp.repositories.RecipeRepository;
 
 @Slf4j
@@ -42,7 +43,7 @@ public class RecipeServiceImpl implements RecipeService {
         Optional<Recipe> recipeOptional = recipeRepository.findById(l);
 
         if (!recipeOptional.isPresent()) {
-            throw new RuntimeException("Recipe Not Found!");
+            throw new NotFoundException("Recipe Not Found!");
         }
 
         return recipeOptional.get();
